@@ -1,0 +1,156 @@
+@use "../../styles/utils/variables" as *;
+@use "../../styles/utils/mixins" as *;
+
+.container__loader {
+  &--modal {
+    --loader-size: 100px; // lg par défaut
+    position: fixed;
+    inset: 0; // replace top/left/width/height
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: whitesmoke;
+    z-index: 9999;
+  }
+
+  &--md { --loader-size: 48px; }
+&--sm { --loader-size: 24px; }
+
+&--ring {
+  position: relative; // le logo se centre sur le spinner
+}
+
+  // Inline variant : covers the parent (which must must position: relative)
+  &--inline {
+    position: absolute;
+    z-index: 10;
+    background: rgba(245, 245, 245, 0.7); // voile sur le contenu
+  }
+
+  &--content {
+    display: flex;
+    flex-direction: column; // stack image, spinner and text vertically
+    align-items: center; // center horizontally
+    justify-content: flex-start;
+    text-align: center;
+  }
+
+  &--spinner {
+    color: $primary-color-2;
+  font-size: var(--loader-size); 
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    position: relative;
+    animation:
+      mltShdSpin 1.7s infinite ease,
+      round 1.7s infinite ease;
+  }
+
+  // Sizes : it changes the font-size, not width/height (shadows are with em)
+  &--sm &--spinner {
+    font-size: 24px;
+  }
+  &--md &--spinner {
+    font-size: 48px;
+  }
+
+  // No logo for small loaders
+  &--sm &--text,
+  &--md &--text {
+    display: none;
+  }
+
+  &--text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+
+    font-size: 1.5rem;
+  }
+
+&--label {
+  margin-top: calc(var(--loader-size) * 0.6); // dégage l'anneau, proportionnel à la taille
+  font-size: 1rem;
+  color: $primary-color-2;
+  text-align: center;
+}
+
+  &--image {
+    width: clamp(32px, 8vw, 48px);
+    height: auto;
+    color: $primary-color-2;
+  }
+
+  // Spinner shadow animation
+  @keyframes mltShdSpin {
+    0% {
+      box-shadow:
+        0 -0.83em 0 -0.4em,
+        0 -0.83em 0 -0.42em,
+        0 -0.83em 0 -0.44em,
+        0 -0.83em 0 -0.46em,
+        0 -0.83em 0 -0.477em;
+    }
+    5%,
+    95% {
+      box-shadow:
+        0 -0.83em 0 -0.4em,
+        0 -0.83em 0 -0.42em,
+        0 -0.83em 0 -0.44em,
+        0 -0.83em 0 -0.46em,
+        0 -0.83em 0 -0.477em;
+    }
+    10%,
+    59% {
+      box-shadow:
+        0 -0.83em 0 -0.4em,
+        -0.087em -0.825em 0 -0.42em,
+        -0.173em -0.812em 0 -0.44em,
+        -0.256em -0.789em 0 -0.46em,
+        -0.297em -0.775em 0 -0.477em;
+    }
+    20% {
+      box-shadow:
+        0 -0.83em 0 -0.4em,
+        -0.338em -0.758em 0 -0.42em,
+        -0.555em -0.617em 0 -0.44em,
+        -0.671em -0.488em 0 -0.46em,
+        -0.749em -0.34em 0 -0.477em;
+    }
+    38% {
+      box-shadow:
+        0 -0.83em 0 -0.4em,
+        -0.377em -0.74em 0 -0.42em,
+        -0.645em -0.522em 0 -0.44em,
+        -0.775em -0.297em 0 -0.46em,
+        -0.82em -0.09em 0 -0.477em;
+    }
+    100% {
+      box-shadow:
+        0 -0.83em 0 -0.4em,
+        0 -0.83em 0 -0.42em,
+        0 -0.83em 0 -0.44em,
+        0 -0.83em 0 -0.46em,
+        0 -0.83em 0 -0.477em;
+    }
+  }
+
+  // Rotation animation
+  @keyframes round {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

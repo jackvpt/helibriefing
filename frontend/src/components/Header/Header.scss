@@ -1,0 +1,30 @@
+@use "../../styles/utils/variables" as *;
+@use "../../styles/utils/mixins" as *;
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: $primary-color-2;
+
+  @include responsive-tablet {
+    box-shadow: 0px 4px 4px 0px #00000040;
+  }
+}
+
+.header__logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+
+  @include responsive-tablet {
+    height: 36px;
+  }
+}

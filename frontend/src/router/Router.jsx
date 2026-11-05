@@ -1,0 +1,80 @@
+// 🌐 REACT Router
+import { Routes, Route, Navigate } from "react-router-dom"
+
+// 🪝 Hooks
+import { useAuthToken } from "../hooks/useAuthToken"
+
+// 🧩 Components
+import Header from "../components/Header/Header"
+import Footer from "../components/Footer/Footer"
+
+// 📄 Pages
+import LoginPage from "../pages/LoginPage/LoginPage"
+import Error from "../pages/Error/Error"
+import DashboardPage from "../pages/DashboardPage/DashboardPage"
+import Navbar from "../components/NavBar/NavBar"
+
+/**
+ * Router — application router component using React Router v6.
+ *
+ * Auth state comes from `useAuthToken` (single source of truth) rather
+ * than reading Redux state directly here — keeps this component
+ * reactive to auth changes and avoids duplicating the validity logic
+ * that already lives in the hook (and in `AppInitializer`).
+ *
+ * @category Router
+ * @component
+ * @returns {JSX.Element} The main Router component for the application.
+ */
+const Router = () => {
+  const { isSuccess: isAuthenticated } = useAuthToken()
+  // const isAuthenticated = true // Temporary override for development/testing
+
+  return (
+    <>
+      {/* Header displayed on all pages */}
+      <Header />
+
+      <div className="app-body">
+        {/* Navbar uniquement pour les utilisateurs connectés */}
+        {isAuthenticated && <Navbar />}
+        {/* SEO-compliant main landmark */}
+        <main role="main">
+          <Routes>
+            {isAuthenticated ? (
+              <>
+                {/* Routes for authenticated users only */}
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/aircrafttypes" element={<DashboardPage />} />
+                <Route path="/weightandbalance" element={<DashboardPage />} />
+
+                {/* Logged-in users shouldn't see login —
+                  redirect them back to the dashboard instead */}
+                <Route path="/login" element={<DashboardPage />} replace />
+
+                {/* Catch-all route for unknown paths */}
+                <Route
+                  path="*"
+                  element={<Navigate to="/dashboard" replace />}
+                />
+              </>
+            ) : (
+              <>
+                {/* Routes available to unauthenticated visitors */}
+                <Route path="/login" element={<LoginPage />} />
+
+                {/* Redirect any other unknown route to login */}
+                <Route path="*" element={<Navigate to="/login" replace />} />
+              </>
+            )}
+          </Routes>
+        </main>
+      </div>
+
+      {/* Footer displayed on all pages */}
+      <Footer />
+    </>
+  )
+}
+
+export default Router

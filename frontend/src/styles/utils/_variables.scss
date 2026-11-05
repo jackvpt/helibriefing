@@ -1,0 +1,28 @@
+// /* Fonts */
+$font_body: "Roboto", sans-serif !default;
+$font_handwriting: "Delicious Handrawn";
+
+// /* Colors */
+$primary-color-1: #fafafa;
+$primary-color-2: #0f2742;
+$primary-color-3: #4a5b70;
+$primary-color-4: #dde3ea;
+$primary-color-5: #777777;
+$primary-color-6: #aaaaaa;
+
+$secondary-color-1: #f5a524;
+$secondary-color-2: #388e3c;
+$secondary-color-3: #d32f2f;
+$secondary-color-4: orange;
+
+$text-color-1: #000;
+$text-color-2: #fff;
+$text-color-3: #f32929;
+
+/* Responsive */
+$breakpoints: (
+  mobile: 370px,
+  tablet: 768px,
+  desktop: 1024px,
+  large-desktop: 1280px,
+);

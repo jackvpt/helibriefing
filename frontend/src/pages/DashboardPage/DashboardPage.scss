@@ -1,0 +1,15 @@
+@use "../../styles/utils/variables" as *;
+@use "../../styles/utils/mixins" as *;
+
+.container__dashboard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  height:100%;
+
+  @include responsive-tablet {
+    flex-direction: row;
+  }
+}

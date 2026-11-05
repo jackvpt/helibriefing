@@ -1,0 +1,26 @@
+{
+  "common-words": {
+    "from": "from",
+    "to": "to",
+    "is-available": "is available",
+    "welcome": "Welcome"
+  },
+  "actions": {
+    "add": "Add",
+    "cancel": "Cancel",
+    "modify": "Modify",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "Error": "Error",
+    "close": "Close",
+    "reload-page": "Reload page",
+    "submit": "Submit",
+    "send": "Send",
+    "reset-password": "Reset password"
+  },
+  "messages": {
+    "loading": "Loading..."
+  }
+
+
+}

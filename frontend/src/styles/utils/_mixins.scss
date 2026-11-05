@@ -1,0 +1,37 @@
+@use "../utils/variables" as *;
+@use "sass:map";
+@use "sass:color";
+
+/* Responsive */
+@mixin responsive-mobile {
+  @media all and (min-width: map.get($breakpoints, mobile)) {
+    @content;
+  }
+}
+@mixin responsive-tablet {
+  @media all and (min-width: map.get($breakpoints, tablet)) {
+    @content;
+  }
+}
+@mixin responsive-desktop {
+  @media all and (min-width: map.get($breakpoints, desktop)) {
+    @content;
+  }
+}
+
+@mixin responsive-large-desktop {
+  @media all and (min-width: map.get($breakpoints, large-desktop)) {
+    @content;
+  }
+}
+
+/* Color Adjustments */
+@function darken-custom($color) {
+  @return color.adjust($color, $lightness: -15%);
+}
+
+@mixin normal-border {
+  padding: 0.5rem;
+  border: 1px solid $primary-color-6;
+  border-radius: 4px;
+}
