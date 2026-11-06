@@ -8,8 +8,7 @@ const rateLimiter = require("./middleware/rate-limiter")
 
 const authRoutes = require("./routes/auth")
 const aircraftTypesRoutes = require("./routes/aircraftTypes")
-const transactionsRoutes = require("./routes/transactions")
-
+const companiesRoutes = require("./routes/companies")
 
 /** Create an express application */
 const app = express()
@@ -19,7 +18,7 @@ const connectDB = async () => {
   try {
     await mongoose.connect(process.env.DB_LINK)
     console.log("MongoDB connection success !")
-     console.log("Connected to DB:", mongoose.connection.name)
+    console.log("Connected to DB:", mongoose.connection.name)
   } catch (error) {
     console.log("MongoDB connection failed !")
   }
@@ -35,12 +34,20 @@ app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }))
 
 /** Middleware for CORS headers */
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", process.env.CLIENT_URL) /** Origins authorized */
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization") /** Some headers authorized */
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS") /** Some methods authorized */
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    process.env.CLIENT_URL,
+  ) /** Origins authorized */
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization",
+  ) /** Some headers authorized */
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+  ) /** Some methods authorized */
   next() /** Go to next middleware */
 })
-
 
 /** Auth routes */
 app.use("/auth", rateLimiter[1], authRoutes)
@@ -48,7 +55,7 @@ app.use("/auth", rateLimiter[1], authRoutes)
 /** Aircraft Type routes */
 app.use("/aircrafttypes", rateLimiter[1], aircraftTypesRoutes)
 
-/** Transactions routes */
-app.use("/transactions", rateLimiter[1], transactionsRoutes)
+/** Company routes */
+app.use("/companies", rateLimiter[1], companiesRoutes)
 
 module.exports = app

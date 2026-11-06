@@ -13,6 +13,7 @@ import LoginPage from "../pages/LoginPage/LoginPage"
 import Error from "../pages/Error/Error"
 import DashboardPage from "../pages/DashboardPage/DashboardPage"
 import Navbar from "../components/NavBar/NavBar"
+import AircraftPage from "../pages/AircraftPage/AircraftPage"
 
 /**
  * Router — application router component using React Router v6.
@@ -45,12 +46,15 @@ const Router = () => {
               <>
                 {/* Routes for authenticated users only */}
                 <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/aircrafttypes" element={<DashboardPage />} />
+                <Route path="/aircraft" element={<AircraftPage />} />
                 <Route path="/weightandbalance" element={<DashboardPage />} />
 
                 {/* Logged-in users shouldn't see login —
                   redirect them back to the dashboard instead */}
-                <Route path="/login" element={<DashboardPage />} replace />
+                <Route
+                  path="/login"
+                  element={<Navigate to="/dashboard" replace />}
+                />
 
                 {/* Catch-all route for unknown paths */}
                 <Route

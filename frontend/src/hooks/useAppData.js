@@ -1,5 +1,6 @@
 // 🪝 Hooks
 import { useGetAllAircraftTypes } from "./useAircraftTypes"
+import { useGetAllCompanies } from "./useCompanies"
 
 /**
  * useAppData
@@ -9,7 +10,8 @@ import { useGetAllAircraftTypes } from "./useAircraftTypes"
  * fire with an unconfirmed/invalid token.
  */
 export const useAppData = ({ enabled = true } = {}) => {
+  const companies = useGetAllCompanies({ enabled })
   const aircraftTypes = useGetAllAircraftTypes({ enabled })
 
-  return { aircraftTypes }
+  return { companies, aircraftTypes }
 }

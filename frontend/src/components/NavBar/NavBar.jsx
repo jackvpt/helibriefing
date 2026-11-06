@@ -24,8 +24,8 @@ const Navbar = () => {
 
   /** Log out the current user */
   const handleLogOut = () => {
-    localStorage.removeItem("mybank_token")
-    sessionStorage.removeItem("mybank_token")
+    localStorage.removeItem("helibriefing_token")
+    sessionStorage.removeItem("helibriefing_token")
     dispatch({ type: "user/clearUser" })
     dispatch({ type: "parameters/reset" })
     navigate("/login")
@@ -48,7 +48,7 @@ const Navbar = () => {
           />
         </NavLink>
         <NavLink
-          to="/aircrafttypes"
+          to="/aircraft"
           className={({ isActive }) =>
             isActive
               ? "container__navbar-button active"
