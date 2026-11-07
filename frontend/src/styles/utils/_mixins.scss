@@ -8,11 +8,13 @@
     @content;
   }
 }
+
 @mixin responsive-tablet {
   @media all and (min-width: map.get($breakpoints, tablet)) {
     @content;
   }
 }
+
 @mixin responsive-desktop {
   @media all and (min-width: map.get($breakpoints, desktop)) {
     @content;

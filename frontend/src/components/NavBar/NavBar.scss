@@ -10,8 +10,9 @@
   padding-top: 2rem;
   padding-bottom: 1rem;
   flex-shrink: 0;
-  width: 48px;
+  width: 60px;
   background-color: $primary-color-2;
+  border:1px solid $primary-color-3;
 
   &-mainButtons {
     display: flex;
@@ -20,8 +21,9 @@
   }
 
   &-button {
-    padding: 0.5rem;
     cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
 
     &:hover {
       background-color: $primary-color-3;

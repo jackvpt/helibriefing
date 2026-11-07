@@ -1,6 +1,7 @@
 // 🪝 Hooks
 import { useGetAllAircraftTypes } from "./useAircraftTypes"
 import { useGetAllCompanies } from "./useCompanies"
+import { useGetAllAircrafts } from "./useAircrafts"
 
 /**
  * useAppData
@@ -12,6 +13,7 @@ import { useGetAllCompanies } from "./useCompanies"
 export const useAppData = ({ enabled = true } = {}) => {
   const companies = useGetAllCompanies({ enabled })
   const aircraftTypes = useGetAllAircraftTypes({ enabled })
+  const aircrafts = useGetAllAircrafts({ enabled })
 
-  return { companies, aircraftTypes }
+  return { companies, aircraftTypes, aircrafts }
 }

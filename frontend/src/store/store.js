@@ -14,10 +14,12 @@ import storage from "redux-persist/lib/storage" // localStorage
 
 // 🧩 Slices
 import userReducer, { clearUser } from "./features/userSlice"
+import settingsReducer from "./features/settingsSlice"
 
 // 🔗 Combine all reducers
 const appReducer = combineReducers({
   user: userReducer,
+  settings: settingsReducer,
 })
 
 // 🚪 Root reducer: wipes the whole state on logout
@@ -36,7 +38,7 @@ const persistConfig = {
   key: "root",
   version: 1, // bump when the shape of the persisted state changes
   storage,
-  whitelist: ["user"],
+  whitelist: ["user", "settings"], // only persist these slices
 }
 
 // 🔁 Persisted reducer

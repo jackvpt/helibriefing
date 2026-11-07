@@ -9,10 +9,10 @@ const aircraftSchema = mongoose.Schema(
       unique: true, // one document per registration
     },
     aircraftType: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "AircraftType", // link to the weight & balance data of the type
+      type: String,
       required: true,
     },
+    avatarUrl: { type: String, default: null },
     emptyEquippedWeight: {
       unit: {
         type: String,
@@ -37,7 +37,7 @@ const aircraftSchema = mongoose.Schema(
     },
     acceptedConfigurations: [
       {
-        names: [{ type: String, required: true }],
+        name: [{ type: String, required: true }],
       },
     ],
   },

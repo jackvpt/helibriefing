@@ -5,8 +5,10 @@ const helmet = require("helmet")
 const express = require("express")
 const mongoose = require("mongoose")
 const rateLimiter = require("./middleware/rate-limiter")
+const path = require("path")
 
 const authRoutes = require("./routes/auth")
+const aircraftRoutes = require("./routes/aircraft")
 const aircraftTypesRoutes = require("./routes/aircraftTypes")
 const companiesRoutes = require("./routes/companies")
 
@@ -49,8 +51,14 @@ app.use((req, res, next) => {
   next() /** Go to next middleware */
 })
 
+/** Uploads */
+app.use("/uploads", express.static(path.join(__dirname, "uploads")))
+
 /** Auth routes */
 app.use("/auth", rateLimiter[1], authRoutes)
+
+/** Aircraft routes */
+app.use("/aircraft", rateLimiter[1], aircraftRoutes)
 
 /** Aircraft Type routes */
 app.use("/aircrafttypes", rateLimiter[1], aircraftTypesRoutes)
