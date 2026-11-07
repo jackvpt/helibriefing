@@ -3,17 +3,22 @@ import "./AircraftCard.scss"
 
 // 🛠️ Redux
 import { useDispatch, useSelector } from "react-redux"
-import { setSelectedAircraftRegistration } from "../../store/features/settingsSlice"
+import {
+  setSelectedAircraftRegistration,
+  setSelectedAircraftType,
+} from "../../store/features/settingsSlice"
 
 const AircraftCard = ({ aircraft }) => {
-  const selectedAircraftRegistration = useSelector(
-    (state) => state.settings.selectedAircraftRegistration || null,
-  )
-  const isActive = selectedAircraftRegistration === aircraft.registration
-  const avatarSrc = aircraft.avatarSrc ?? ""
   const dispatch = useDispatch()
 
+  const selectedAircraft = useSelector(
+    (state) => state.settings.selectedAircraft || null,
+  )
+  const isActive = selectedAircraft.registration === aircraft.registration
+  const avatarSrc = aircraft.avatarSrc ?? ""
+
   const handleClick = () => {
+    dispatch(setSelectedAircraftType(aircraft.aircraftType))
     dispatch(setSelectedAircraftRegistration(aircraft.registration))
   }
 

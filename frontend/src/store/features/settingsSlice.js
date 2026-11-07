@@ -6,8 +6,7 @@ import { createSlice } from "@reduxjs/toolkit"
  */
 const initialState = {
   // Currently selected aircraft
-  selectedAircraftRegistration: null,
-  selectedAircraftConfiguration: null,
+  selectedAircraft: { type: null, registration: null, configuration: null },
 }
 
 /**
@@ -18,16 +17,39 @@ const settingsSlice = createSlice({
   initialState,
   reducers: {
     /**
-     * Set the selected aircraft.
-     * @param {{ registration: string, configuration: string }} action.payload
+     * Set the selected aircraft type.
+     * @param {import("@reduxjs/toolkit").PayloadAction<string|null>} action
+     */
+    setSelectedAircraftType: (state, action) => {
+      state.selectedAircraft.type = action.payload
+      state.selectedAircraft.registration = null
+      state.selectedAircraft.configuration = null
+    },
+
+    /**
+     * Set the selected aircraft registration.
+     * @param {import("@reduxjs/toolkit").PayloadAction<string|null>} action
      */
     setSelectedAircraftRegistration: (state, action) => {
-      state.selectedAircraftRegistration = action.payload
+      state.selectedAircraft.registration = action.payload
+      state.selectedAircraft.configuration = null
+    },
+
+    /**
+     * Set the selected aircraft configuration.
+     * @param {import("@reduxjs/toolkit").PayloadAction<string|null>} action
+     */
+    setSelectedAircraftConfiguration: (state, action) => {
+      state.selectedAircraft.configuration = action.payload
     },
   },
 })
 
 // Export actions for dispatch
-export const { setSelectedAircraftRegistration } = settingsSlice.actions
+export const {
+  setSelectedAircraftType,
+  setSelectedAircraftRegistration,
+  setSelectedAircraftConfiguration,
+} = settingsSlice.actions
 
 export default settingsSlice.reducer

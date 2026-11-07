@@ -7,11 +7,13 @@ import { useDispatch, useSelector } from "react-redux"
 
 // FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 import {
-    faHouse,
+  faHouse,
   faArrowRightFromBracket,
   faHelicopter,
   faScaleBalanced,
+  faSliders,
 } from "@fortawesome/free-solid-svg-icons"
 
 const Navbar = () => {
@@ -21,6 +23,8 @@ const Navbar = () => {
 
   // Store state
   const isAuthenticated = useSelector((state) => state.user.userId !== null)
+
+  // Data
 
   /** Log out the current user */
   const handleLogOut = () => {
@@ -58,6 +62,19 @@ const Navbar = () => {
           <FontAwesomeIcon
             className="container__navbar-button-icon"
             icon={faHelicopter}
+          />
+        </NavLink>
+        <NavLink
+          to="/configuration"
+          className={({ isActive }) =>
+            isActive
+              ? "container__navbar-button active"
+              : `container__navbar-button ${!isAuthenticated ? "disabled" : ""}`
+          }
+        >
+          <FontAwesomeIcon
+            className="container__navbar-button-icon"
+            icon={faSliders}
           />
         </NavLink>
         <NavLink

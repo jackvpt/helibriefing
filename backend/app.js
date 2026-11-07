@@ -10,6 +10,7 @@ const path = require("path")
 const authRoutes = require("./routes/auth")
 const aircraftRoutes = require("./routes/aircraft")
 const aircraftTypesRoutes = require("./routes/aircraftTypes")
+const configurationsRoutes = require("./routes/configurations")
 const companiesRoutes = require("./routes/companies")
 
 /** Create an express application */
@@ -62,6 +63,9 @@ app.use("/aircraft", rateLimiter[1], aircraftRoutes)
 
 /** Aircraft Type routes */
 app.use("/aircrafttypes", rateLimiter[1], aircraftTypesRoutes)
+
+/** Configuration routes */
+app.use("/configurations", rateLimiter[1], configurationsRoutes)
 
 /** Company routes */
 app.use("/companies", rateLimiter[1], companiesRoutes)

@@ -5,17 +5,14 @@ import "./Footer.scss"
 import { useSelector } from "react-redux"
 
 const Footer = () => {
-  const selectedAircraftRegistration = useSelector(
-    (state) => state.settings.selectedAircraftRegistration || null,
+  const selectedAircraft = useSelector(
+    (state) => state.settings.selectedAircraft ,
   )
-  console.log(
-    "Footer: selectedAircraftRegistration =",
-    selectedAircraftRegistration,
-  )
+
   return (
     <footer>
-      {selectedAircraftRegistration &&
-        `Selected Aircraft: ${selectedAircraftRegistration}`}
+      {selectedAircraft.registration &&
+        `Selected Aircraft: ${selectedAircraft.registration} | ${selectedAircraft.type}`}
     </footer>
   )
 }
