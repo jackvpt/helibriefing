@@ -17,17 +17,33 @@
 
   transition:
     background-color 0.1s ease,
+    color 0.1s ease,
     box-shadow 0.1s ease;
+
+  &:hover,
+  &.active {
+    background-color: $primary-color-3;
+    color: $primary-color-1;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+
+    h2 {
+      color: inherit;
+    }
+  }
 
   &:hover {
     cursor: pointer;
-    background-color: $primary-color-3;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
   }
 
   &.active {
     background-color: $primary-color-3;
+    color: $primary-color-1;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+
+    h2 {
+      color: inherit;
+      background-color: transparent;
+    }
   }
 
   h2 {

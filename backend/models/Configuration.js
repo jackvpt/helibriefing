@@ -21,26 +21,15 @@ const configurationSchema = mongoose.Schema(
       {
         name: { type: String, required: true },
         description: { type: String, required: false },
-        weight: {
-          unit: {
-            type: String,
-            enum: ["kg", "lbs"],
-            required: true,
-            default: "kg",
-          },
-          value: {
-            type: Number,
-            required: true,
-            min: [0, "Weight cannot be negative"],
-          },
-        },
+
         arm: {
           unit: {
             type: String,
             enum: ["millimeters", "centimeters", "meters"],
             default: "meters",
           },
-          value: { type: Number, required: true },
+          longitudinal: { type: Number, required: true },
+          lateral: { type: Number, required: false },
         },
       },
     ],
@@ -51,3 +40,37 @@ const configurationSchema = mongoose.Schema(
 
 /** Model methods converts Schema in usable model */
 module.exports = mongoose.model("Configuration", configurationSchema)
+
+/** Example of a configuration */
+const example = {
+  aircraftType: "H145D3",
+  name: "Club",
+  description: "8 sièges passagers, face à face, 1 pilote, 1 passager avant",
+  elements: [
+    {
+      name: "Right pilot",
+      arm: { unit: "millimeters", longitudinal: 2312, lateral: 390 },
+    },
+    {
+      name: "Left pilot",
+      arm: { unit: "millimeters", longitudinal: 2312, lateral: -390 },
+    },
+    {
+      name: "Seat A",
+      arm: { unit: "millimeters", longitudinal: 3250, lateral: -550 },
+    },
+    {
+      name: "Seat A",
+      arm: { unit: "millimeters", longitudinal: 3250, lateral: -550 },
+    },
+    {
+      name: "Seat B",
+      arm: { unit: "millimeters", longitudinal: 3250, lateral: 0 },
+    },
+    {
+      name: "Seat C",
+      arm: { unit: "millimeters", longitudinal: 3250, lateral: 550 },
+    },
+  ],
+  avatarUrl: "/uploads/aircrafts_configurations/h145_configuration_8seats.png",
+}

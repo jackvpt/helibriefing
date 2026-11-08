@@ -5,6 +5,10 @@
     "is-available": "is available",
     "welcome": "Welcome"
   },
+  "aircraft":{
+    "selectedAircraft": "Selected aircraft",
+    "noAircraftSelected": "No aircraft selected"
+  },
   "actions": {
     "add": "Add",
     "cancel": "Cancel",

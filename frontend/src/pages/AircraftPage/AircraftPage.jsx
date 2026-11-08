@@ -1,11 +1,16 @@
 // 🎨 Styles
 import "./AircraftPage.scss"
 
-import { useSelector } from "react-redux"
-import { useGetAllCompanies } from "../../hooks/useCompanies"
-import AircraftCard from "../../components/AircraftCard/AircraftCard"
-import { useGetAllAircrafts } from "../../hooks/useAircrafts"
+// React
 import { useMemo } from "react"
+import { useSelector } from "react-redux"
+
+// Hooks
+import { useGetAllCompanies } from "../../hooks/useCompanies"
+import { useGetAllAircrafts } from "../../hooks/useAircrafts"
+
+// Components
+import AircraftCard from "../../components/AircraftCard/AircraftCard"
 
 const AircraftPage = () => {
   const userCompany = useSelector((state) => state.user.company)

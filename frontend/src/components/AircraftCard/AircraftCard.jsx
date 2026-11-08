@@ -12,11 +12,12 @@ const AircraftCard = ({ aircraft }) => {
   const dispatch = useDispatch()
 
   const selectedAircraft = useSelector(
-    (state) => state.settings.selectedAircraft || null,
+    (state) => state.settings.selectedAircraft,
   )
-  const isActive = selectedAircraft.registration === aircraft.registration
+  const isActive = selectedAircraft && selectedAircraft.registration === aircraft.registration
   const avatarSrc = aircraft.avatarSrc ?? ""
 
+  // Local functions
   const handleClick = () => {
     dispatch(setSelectedAircraftType(aircraft.aircraftType))
     dispatch(setSelectedAircraftRegistration(aircraft.registration))

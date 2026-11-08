@@ -6,7 +6,7 @@ import { createSlice } from "@reduxjs/toolkit"
  */
 const initialState = {
   // Currently selected aircraft
-  selectedAircraft: { type: null, registration: null, configuration: null },
+  selectedAircraft: { aircraftType: null, registration: null, configuration: null },
 }
 
 /**
@@ -21,7 +21,7 @@ const settingsSlice = createSlice({
      * @param {import("@reduxjs/toolkit").PayloadAction<string|null>} action
      */
     setSelectedAircraftType: (state, action) => {
-      state.selectedAircraft.type = action.payload
+      state.selectedAircraft.aircraftType = action.payload
       state.selectedAircraft.registration = null
       state.selectedAircraft.configuration = null
     },
