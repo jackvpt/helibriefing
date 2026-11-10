@@ -26,11 +26,20 @@ export default class ConfigurationModel {
 
     /** @type {string | null} */
     this.avatarUrl = data.avatarUrl || null
+
+    /** @type {Object | null} */
+    this.noSeatImage = data.noSeatImage || null
   }
 
   get avatarSrc() {
     return this.avatarUrl
       ? `${import.meta.env.VITE_API_URL}${this.avatarUrl}`
+      : null
+  }
+
+  get noSeatImageSrc() {
+    return this.noSeatImage.url
+      ? `${import.meta.env.VITE_API_URL}${this.noSeatImage.url}`
       : null
   }
 }

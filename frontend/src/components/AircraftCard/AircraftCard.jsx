@@ -33,7 +33,6 @@ const AircraftCard = ({ aircraft }) => {
         className="container__aircraftCard-avatar"
         src={avatarSrc}
         alt={`Photo de ${aircraft.registration}`}
-        loading="lazy"
         onError={(e) => {
           e.currentTarget.onerror = null
           e.currentTarget.src = "/default-avatar.png"

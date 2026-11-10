@@ -2,7 +2,8 @@
 import "./Loader.scss"
 
 // 🖼️ Image imports
-import Logo from "../../assets/images/helibriefing-logo.svg?react"
+import Logo from "../../assets/images/helibriefing-icon.svg?react"
+
 /**
  * Loader component displaying a loading animation.
  * Uses a modal overlay with a spinner and localized loading text.

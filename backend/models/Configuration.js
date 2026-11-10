@@ -20,8 +20,16 @@ const configurationSchema = mongoose.Schema(
     elements: [
       {
         name: { type: String, required: true },
+        displayCode: { type: String, required: true },
+        seatType: {
+          type: String,
+          required: true,
+        },
+        orientation: {
+          type: Number,
+          default: 0,
+        },
         description: { type: String, required: false },
-
         arm: {
           unit: {
             type: String,
@@ -34,6 +42,13 @@ const configurationSchema = mongoose.Schema(
       },
     ],
     avatarUrl: { type: String, default: null },
+    noSeatImage:{
+      url: { type: String, default: null },
+      min_longitudinal: { type: Number, default: null },
+      max_longitudinal: { type: Number, default: null },
+      min_lateral: { type: Number, default: null },
+      max_lateral: { type: Number, default: null },
+    }
   },
   { timestamps: true }, // createdAt / updatedAt
 )
@@ -48,26 +63,27 @@ const example = {
   description: "8 sièges passagers, face à face, 1 pilote, 1 passager avant",
   elements: [
     {
+      displayCode: "RP",
       name: "Right pilot",
       arm: { unit: "millimeters", longitudinal: 2312, lateral: 390 },
     },
     {
+      displayCode: "LP",
       name: "Left pilot",
       arm: { unit: "millimeters", longitudinal: 2312, lateral: -390 },
     },
     {
+      displayCode: "A",
       name: "Seat A",
       arm: { unit: "millimeters", longitudinal: 3250, lateral: -550 },
     },
     {
-      name: "Seat A",
-      arm: { unit: "millimeters", longitudinal: 3250, lateral: -550 },
-    },
-    {
+      displayCode: "B",
       name: "Seat B",
       arm: { unit: "millimeters", longitudinal: 3250, lateral: 0 },
     },
     {
+      displayCode: "C",
       name: "Seat C",
       arm: { unit: "millimeters", longitudinal: 3250, lateral: 550 },
     },

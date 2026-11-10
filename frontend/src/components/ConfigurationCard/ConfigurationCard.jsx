@@ -5,19 +5,23 @@ import "./ConfigurationCard.scss"
 import { useDispatch, useSelector } from "react-redux"
 
 // 🛠️ Redux
+import { setSelectedAircraftConfiguration } from "../../store/features/settingsSlice"
 
 const ConfigurationCard = ({ configuration }) => {
   const dispatch = useDispatch()
 
   const selectedConfiguration = useSelector(
-    (state) => state.settings.selectedConfiguration,
+    (state) => state.settings.selectedAircraft.configuration,
   )
   const isActive =
-    selectedConfiguration && selectedConfiguration.name === configuration.name
-  const avatarSrc = configuration.avatarSrc ?? ""
+    selectedConfiguration && selectedConfiguration === configuration.name
+  
+    const avatarSrc = configuration.avatarSrc ?? ""
 
   // Local functions
-  const handleClick = () => {}
+  const handleClick = () => {
+    dispatch(setSelectedAircraftConfiguration(configuration.name))
+  }
 
   return (
     <div
@@ -29,7 +33,6 @@ const ConfigurationCard = ({ configuration }) => {
         className="container__configurationCard-avatar"
         src={avatarSrc}
         alt={`Photo de ${configuration.name}`}
-        loading="lazy"
         onError={(e) => {
           e.currentTarget.onerror = null
           e.currentTarget.src = "/default-avatar.png"

@@ -17,9 +17,16 @@ const Footer = () => {
 
   return (
     <footer>
-      {selectedAircraft?.registration
-        ? `${t("aircraft.selectedAircraft")} : ${selectedAircraft.registration} | ${selectedAircraft.aircraftType}`
-        : t("aircraft.noAircraftSelected")}
+      <div>
+        {selectedAircraft?.registration
+          ? `${t("aircraft.selectedAircraft")} : ${selectedAircraft.aircraftType} | ${selectedAircraft.registration}`
+          : t("aircraft.noAircraftSelected")}
+      </div>
+      <div>
+        {selectedAircraft?.configuration
+          ? `${t("aircraft.selectedConfiguration")} : ${selectedAircraft.configuration}`
+          : t("aircraft.noConfigurationSelected")}
+      </div>
     </footer>
   )
 }

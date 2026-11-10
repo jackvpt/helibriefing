@@ -23,8 +23,14 @@ const Navbar = () => {
 
   // Store state
   const isAuthenticated = useSelector((state) => state.user.userId !== null)
+  const selectedAircraft = useSelector(
+    (state) => state.settings.selectedAircraft,
+  )
 
   // Data
+  const isConfigurationDisabled = !selectedAircraft?.aircraftType
+  const isWeightBalanceDisabled =
+    !selectedAircraft?.aircraftType || !selectedAircraft?.configuration
 
   /** Log out the current user */
   const handleLogOut = () => {
@@ -67,10 +73,15 @@ const Navbar = () => {
         <NavLink
           to="/configuration"
           className={({ isActive }) =>
-            isActive
-              ? "container__navbar-button active"
-              : `container__navbar-button ${!isAuthenticated ? "disabled" : ""}`
+            `container__navbar-button ${
+              isActive ? "active" : ""
+            } ${isConfigurationDisabled ? "disabled" : ""}`
           }
+          onClick={(e) => {
+            if (isConfigurationDisabled) e.preventDefault()
+          }}
+          aria-disabled={isConfigurationDisabled}
+          tabIndex={isConfigurationDisabled ? -1 : 0}
         >
           <FontAwesomeIcon
             className="container__navbar-button-icon"
@@ -78,12 +89,17 @@ const Navbar = () => {
           />
         </NavLink>
         <NavLink
-          to="/weightandbalance"
+          to="/weightbalance"
           className={({ isActive }) =>
-            isActive
-              ? "container__navbar-button active"
-              : `container__navbar-button ${!isAuthenticated ? "disabled" : ""}`
+            `container__navbar-button ${
+              isActive ? "active" : ""
+            } ${isWeightBalanceDisabled ? "disabled" : ""}`
           }
+          onClick={(e) => {
+            if (isWeightBalanceDisabled) e.preventDefault()
+          }}
+          aria-disabled={isWeightBalanceDisabled}
+          tabIndex={isWeightBalanceDisabled ? -1 : 0}
         >
           <FontAwesomeIcon
             className="container__navbar-button-icon"

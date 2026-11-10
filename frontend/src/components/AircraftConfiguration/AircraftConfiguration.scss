@@ -1,0 +1,31 @@
+@use "../../styles/utils/variables" as *;
+@use "../../styles/utils/mixins" as *;
+
+.container__aircraftConfiguration {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+
+  &-aircraft {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  &-element {
+    cursor: pointer;
+    &-text {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      color: red;
+      z-index: 999;
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    &-seat {
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

@@ -14,12 +14,16 @@
     z-index: 9999;
   }
 
-  &--md { --loader-size: 48px; }
-&--sm { --loader-size: 24px; }
+  &--md {
+    --loader-size: 48px;
+  }
+  &--sm {
+    --loader-size: 24px;
+  }
 
-&--ring {
-  position: relative; // le logo se centre sur le spinner
-}
+  &--ring {
+    position: relative; // le logo se centre sur le spinner
+  }
 
   // Inline variant : covers the parent (which must must position: relative)
   &--inline {
@@ -38,7 +42,7 @@
 
   &--spinner {
     color: $primary-color-2;
-  font-size: var(--loader-size); 
+    font-size: var(--loader-size);
     width: 1em;
     height: 1em;
     border-radius: 50%;
@@ -77,15 +81,17 @@
     font-size: 1.5rem;
   }
 
-&--label {
-  margin-top: calc(var(--loader-size) * 0.6); // dégage l'anneau, proportionnel à la taille
-  font-size: 1rem;
-  color: $primary-color-2;
-  text-align: center;
-}
+  &--label {
+    margin-top: calc(
+      var(--loader-size) * 0.6
+    ); // dégage l'anneau, proportionnel à la taille
+    font-size: 1rem;
+    color: $primary-color-2;
+    text-align: center;
+  }
 
   &--image {
-    width: clamp(32px, 8vw, 48px);
+    width: clamp(80px, 8vw, 100px);
     height: auto;
     color: $primary-color-2;
   }

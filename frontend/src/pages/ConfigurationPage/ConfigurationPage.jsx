@@ -50,7 +50,7 @@ const ConfigurationPage = () => {
   return (
     <section className="container__configurationPage">
       {aircraftConfigurations.map((configuration) => (
-        <ConfigurationCard configuration={configuration} />
+        <ConfigurationCard key={configuration.id} configuration={configuration} />
       ))}
     </section>
   )

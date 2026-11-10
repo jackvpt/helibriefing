@@ -46,3 +46,20 @@ export const useGetAllConfigurations = ({ enabled = true } = {}) => {
     ...DEFAULT_QUERY_OPTIONS,
   })
 }
+
+export const useGetConfigurationsByAircraftType = (
+  aircraftType,
+  { enabled = true } = {},
+) => {
+  return useQuery({
+    queryKey: ["configurations", aircraftType],
+    queryFn: () =>
+      getAllConfigurations().then(configurations =>
+        configurations
+          .map(configuration => new ConfigurationModel(configuration))
+          .filter(configuration => configuration.aircraftType === aircraftType)
+      ),
+    enabled: enabled && !!aircraftType,
+    ...DEFAULT_QUERY_OPTIONS,
+  })
+}

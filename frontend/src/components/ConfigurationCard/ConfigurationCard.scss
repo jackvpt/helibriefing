@@ -9,7 +9,7 @@
   gap: 1rem;
   padding: 1rem;
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
   background-color: $primary-color-4;
   border-radius: 0.5rem;
 
@@ -35,25 +35,7 @@
     cursor: pointer;
   }
 
-  &.active {
-    background-color: $primary-color-3;
-    color: $primary-color-1;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-
-    h2 {
-      color: inherit;
-      background-color: transparent;
-    }
-  }
-
-  h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: $text-color-1;
-    align-self: flex-start;
-  }
-
   &-avatar {
-    width: 200px;
+    width: 100%;
   }
 }
