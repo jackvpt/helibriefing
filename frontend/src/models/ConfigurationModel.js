@@ -1,3 +1,6 @@
+// Models
+import ConfigurationElementModel from "./ConfigurationElementModel"
+
 /**
  * Represents a configuration with its details.
  */
@@ -22,7 +25,7 @@ export default class ConfigurationModel {
     this.description = data.description
 
     /** @type {Array} */
-    this.elements = data.elements || []
+    this.elements = data.elements?.map((element) => new ConfigurationElementModel(element)) || []
 
     /** @type {string | null} */
     this.avatarUrl = data.avatarUrl || null

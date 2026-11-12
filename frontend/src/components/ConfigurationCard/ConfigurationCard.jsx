@@ -6,6 +6,10 @@ import { useDispatch, useSelector } from "react-redux"
 
 // 🛠️ Redux
 import { setSelectedAircraftConfiguration } from "../../store/features/settingsSlice"
+import { setConfigurationElements } from "../../store/features/weightBalanceSlice"
+
+// Models
+import ConfigurationElementModel from "../../models/ConfigurationElementModel"
 
 const ConfigurationCard = ({ configuration }) => {
   const dispatch = useDispatch()
@@ -15,12 +19,17 @@ const ConfigurationCard = ({ configuration }) => {
   )
   const isActive =
     selectedConfiguration && selectedConfiguration === configuration.name
-  
-    const avatarSrc = configuration.avatarSrc ?? ""
+
+  const avatarSrc = configuration.avatarSrc ?? ""
 
   // Local functions
   const handleClick = () => {
     dispatch(setSelectedAircraftConfiguration(configuration.name))
+    dispatch(
+      setConfigurationElements(
+        configuration.elements.map((element) => new ConfigurationElementModel(element).toPayload()),
+      ),
+    )
   }
 
   return (

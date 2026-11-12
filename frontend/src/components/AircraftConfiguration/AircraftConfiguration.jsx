@@ -1,10 +1,29 @@
 // Styles
 import "./AircraftConfiguration.scss"
 
+// React
+import { useDispatch, useSelector } from "react-redux"
+
+// Store
+import { updateConfigurationElementWeight } from "../../store/features/weightBalanceSlice"
+
 // Images
 import SeatPax from "../../assets/images/seat_pax.svg?react"
+import SeatPilot from "../../assets/images/seat_pilot.svg?react"
+
+// Constants
+const SEAT_COMPONENTS = {
+  seat_pilot: SeatPilot,
+  seat_pax: SeatPax,
+}
 
 const AircraftConfiguration = ({ configuration }) => {
+  // Redux store
+  const dispatch = useDispatch()
+  const storeElements = useSelector(
+    (state) => state.weightBalance.configurationElements,
+  )
+
   const noSeatImage = configuration.noSeatImageSrc ?? ""
 
   const MM_NOSE = configuration.noSeatImage?.min_longitudinal ?? 0
@@ -23,49 +42,71 @@ const AircraftConfiguration = ({ configuration }) => {
     top: ((MM_RIGHT - lateral) / SPAN_LATERAL) * 100,
   })
 
-  return (
-    <div className="container__aircraftConfiguration">
-      <img
-        className="container__aircraftConfiguration-aircraft"
-        src={noSeatImage}
-        alt={`Photo de ${configuration.name}`}
-        onError={(e) => {
-          e.currentTarget.onerror = null
-          e.currentTarget.src = "/default-avatar.png"
-        }}
-      />
-      {configuration.elements.map((element) => {
-        const { left, top } = toPercent(element.arm)
-        return (
-          <div
-            className="container__aircraftConfiguration-element"
-            key={element._id}
-          >
-            <div
-              key={element._id}
-              className="container__aircraftConfiguration-element-text"
-              style={{ left: `${left}%`, top: `${top}%` }}
-            >
-              {element.displayCode}
-            </div>
+  // Local functions
+  const weightByCode = Object.fromEntries(
+    storeElements.map((e) => [e.displayCode, e.weight]),
+  )
 
-            <SeatPax
-              className="container__aircraftConfiguration-element-seat"
-              role="img"
-              aria-label={`Siège ${element.displayCode}`}
-              style={{
-                left: `${left}%`,
-                top: `${top}%`,
-                width: `${SEAT_SCALE_X * 100}%`,
-                height: `${SEAT_SCALE_Y * 100}%`,
-                color: "#00f",
-                transform: `translate(-50%, -50%) rotate(${element.rotation ?? 0}deg)`,
-              }}
-            />
-          </div>
-        )
-      })}
-    </div>
+  const handleSeatClick = (element) => () => {
+    const currentWeight = weightByCode[element.displayCode] ?? 0
+    dispatch(
+      updateConfigurationElementWeight({
+        displayCode: element.displayCode,
+        weight: currentWeight > 0 ? 0 : 80,
+      }),
+    )
+  }
+
+  return (
+    <>
+      <div className="container__aircraftConfiguration">
+        <img
+          className="container__aircraftConfiguration-aircraft"
+          src={noSeatImage}
+          alt={`Picture of ${configuration.name}`}
+          onError={(e) => {
+            e.currentTarget.onerror = null
+            e.currentTarget.src = "/default-avatar.png"
+          }}
+        />
+
+        {/** Seats */}
+        {configuration.elements.map((element) => {
+          const { left, top } = toPercent(element.arm)
+          const Seat = SEAT_COMPONENTS[element.elementType] ?? SeatPax
+          const isOccupied = (weightByCode[element.displayCode] ?? 0) > 0
+
+          return (
+            <div
+              className="container__aircraftConfiguration-element"
+              key={element.id}
+            >
+              <div
+                className="container__aircraftConfiguration-element-text"
+                style={{ left: `${left}%`, top: `${top}%` }}
+                onClick={handleSeatClick(element)}
+              >
+                {element.displayCode}
+              </div>
+
+              <Seat
+                className={`container__aircraftConfiguration-element-seat ${isOccupied ? "seat--occupied" : ""}`}
+                role="img"
+                aria-label={`Siège ${element.displayCode}`}
+                style={{
+                  left: `${left}%`,
+                  top: `${top}%`,
+                  width: `${SEAT_SCALE_X * 100}%`,
+                  height: `${SEAT_SCALE_Y * 100}%`,
+                  transform: `translate(-50%, -50%) rotate(${element.orientation ?? 0}deg)`,
+                }}
+                onClick={handleSeatClick(element)}
+              />
+            </div>
+          )
+        })}
+      </div>
+    </>
   )
 }
 

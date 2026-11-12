@@ -7,8 +7,9 @@ import { useSelector } from "react-redux"
 // Hooks
 import { useGetConfigurationsByAircraftType } from "../../hooks/useConfigurations"
 
-
+// Components
 import AircraftConfiguration from "../../components/AircraftConfiguration/AircraftConfiguration"
+import AircraftConfigurationElements from "../../components/AircraftConfigurationElements/AircraftConfigurationElements"
 
 const WeightBalancePage = () => {
   const selectedAircraft = useSelector(
@@ -26,11 +27,10 @@ const WeightBalancePage = () => {
     return
   }
 
-
-
   return (
     <section className="container__weightBalancePage">
-    <AircraftConfiguration configuration={selectedConfiguration} />
+      <AircraftConfiguration configuration={selectedConfiguration} />
+      <AircraftConfigurationElements />
     </section>
   )
 }

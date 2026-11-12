@@ -14,10 +14,10 @@
 
   &-element {
     cursor: pointer;
+
     &-text {
       position: absolute;
       transform: translate(-50%, -50%);
-      color: red;
       z-index: 999;
       font-size: 0.9rem;
       font-weight: 400;
@@ -26,6 +26,11 @@
     &-seat {
       position: absolute;
       transform: translate(-50%, -50%);
+      color:gray;
     }
+
   }
+}
+.seat--occupied {
+  color: yellow;
 }

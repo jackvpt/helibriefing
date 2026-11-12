@@ -21,9 +21,13 @@ const configurationSchema = mongoose.Schema(
       {
         name: { type: String, required: true },
         displayCode: { type: String, required: true },
-        seatType: {
+        elementType: {
           type: String,
           required: true,
+        },
+        function: {
+          type: String,
+          required: false,
         },
         orientation: {
           type: Number,
@@ -42,13 +46,13 @@ const configurationSchema = mongoose.Schema(
       },
     ],
     avatarUrl: { type: String, default: null },
-    noSeatImage:{
+    noSeatImage: {
       url: { type: String, default: null },
       min_longitudinal: { type: Number, default: null },
       max_longitudinal: { type: Number, default: null },
       min_lateral: { type: Number, default: null },
       max_lateral: { type: Number, default: null },
-    }
+    },
   },
   { timestamps: true }, // createdAt / updatedAt
 )
