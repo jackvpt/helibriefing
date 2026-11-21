@@ -6,7 +6,16 @@ import { createSlice } from "@reduxjs/toolkit"
  */
 const initialState = {
   // Currently selected aircraft
-  selectedAircraft: { aircraftType: null, registration: null, configuration: null },
+  selectedAircraft: {
+    aircraftType: null,
+    registration: null,
+    configuration: null,
+  },
+
+  // Customization settings
+  customization: {
+    customWeight: 85,
+  },
 }
 
 /**
@@ -42,6 +51,14 @@ const settingsSlice = createSlice({
     setSelectedAircraftConfiguration: (state, action) => {
       state.selectedAircraft.configuration = action.payload
     },
+
+    /**
+     * Set the custom weight for elements.
+     * @param {import("@reduxjs/toolkit").PayloadAction<number>} action
+     */
+    setCustomWeight: (state, action) => {
+      state.customization.customWeight = action.payload
+    },
   },
 })
 
@@ -50,6 +67,7 @@ export const {
   setSelectedAircraftType,
   setSelectedAircraftRegistration,
   setSelectedAircraftConfiguration,
+  setCustomWeight,
 } = settingsSlice.actions
 
 export default settingsSlice.reducer

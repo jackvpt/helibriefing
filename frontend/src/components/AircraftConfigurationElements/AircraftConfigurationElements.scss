@@ -25,6 +25,11 @@
     }
   }
 
+  .separator {
+    border-bottom: 1px solid $primary-color-6;
+    padding-bottom: 0.5rem;
+  }
+
   &-totalWeight {
     display: flex;
     flex-direction: row;

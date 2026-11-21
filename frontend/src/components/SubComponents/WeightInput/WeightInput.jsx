@@ -8,7 +8,7 @@ import { useRef } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons"
 
-const WeightInput = ({ value, onChange, step = 5, min = 0 }) => {
+const WeightInput = ({ value, onChange, step = 5, min = 0, trash = true }) => {
   const justFocused = useRef(false)
 
   const adjust = (delta) => {
@@ -63,11 +63,13 @@ const WeightInput = ({ value, onChange, step = 5, min = 0 }) => {
         +
       </button>
 
-      <FontAwesomeIcon
-        className="container__weightInput-buttonTrash"
-        icon={faTrashCan}
-        onClick={() => onChange(null)}
-      />
+      {trash && (
+        <FontAwesomeIcon
+          className="container__weightInput-buttonTrash"
+          icon={faTrashCan}
+          onClick={() => onChange(null)}
+        />
+      )}
     </div>
   )
 }

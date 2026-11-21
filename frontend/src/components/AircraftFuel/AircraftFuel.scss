@@ -21,6 +21,29 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+
+      &--label {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  &--multipleGroups {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    &--row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      &--label {
+        font-size: 0.9rem;
+      }
     }
   }
 }

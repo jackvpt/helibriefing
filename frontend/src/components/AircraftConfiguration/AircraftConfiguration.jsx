@@ -23,6 +23,7 @@ const AircraftConfiguration = ({ configuration }) => {
   const storeElements = useSelector(
     (state) => state.weightBalance.configurationElements,
   )
+  const customWeight = useSelector((state) => state.settings.customization.customWeight)
 
   const noSeatImage = configuration.noSeatImageSrc ?? ""
 
@@ -52,7 +53,7 @@ const AircraftConfiguration = ({ configuration }) => {
     dispatch(
       updateConfigurationElementWeight({
         displayCode: element.displayCode,
-        weight: currentWeight > 0 ? 0 : 80,
+        weight: currentWeight > 0 ? 0 : customWeight,
       }),
     )
   }

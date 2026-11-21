@@ -43,10 +43,12 @@ const AircraftFuel = ({ aircraftType }) => {
 
   return (
     <div className="container__aircraftFuel">
-      {fuelGroups?.length === 1 && (
+      {fuelGroups?.length === 1 ? (
         <div className="container__aircraftFuel--singleGroup">
           <div className="container__aircraftFuel--singleGroup--row">
-            <p>Take-off fuel</p>
+            <div className="container__aircraftFuel--singleGroup--row--label">
+              Take-off fuel
+            </div>
             <WeightInput
               value={fuelTakeoffGroups[0]?.value || 0}
               onChange={(value) => handleFuelChange("takeoff", "Main", value)}
@@ -54,13 +56,65 @@ const AircraftFuel = ({ aircraftType }) => {
             />
           </div>
           <div className="container__aircraftFuel--singleGroup--row">
-            <p>Landing fuel</p>
+            <div className="container__aircraftFuel--singleGroup--row--label">
+              Landing fuel
+            </div>
             <WeightInput
               value={fuelLandingGroups[0]?.value || 0}
               onChange={(value) => handleFuelChange("landing", "Main", value)}
               step={50}
             />
           </div>
+        </div>
+      ) : (
+        <div className="container__aircraftFuel--multipleGroups">
+          {/** Take-off fuel */}
+          <div className="container__aircraftFuel--singleGroup--row--label">
+            Take-off fuel
+          </div>
+          {fuelGroups?.map((group) => (
+            <div
+              key={group.name}
+              className="container__aircraftFuel--multipleGroups--row"
+            >
+              <p>{group.name}</p>
+              <WeightInput
+                value={
+                  fuelTakeoffGroups.find(
+                    (grp) => grp.abbreviatedName === group.abbreviatedName,
+                  )?.value || 0
+                }
+                onChange={(value) =>
+                  handleFuelChange("takeoff", group.abbreviatedName, value)
+                }
+                step={50}
+              />
+            </div>
+          ))}
+
+          {/** Landing fuel */}
+          <div className="container__aircraftFuel--singleGroup--row--label">
+            Landing fuel
+          </div>
+          {fuelGroups?.map((group) => (
+            <div
+              key={group.name}
+              className="container__aircraftFuel--multipleGroups--row"
+            >
+              <p>{group.name}</p>
+              <WeightInput
+                value={
+                  fuelLandingGroups.find(
+                    (grp) => grp.abbreviatedName === group.abbreviatedName,
+                  )?.value || 0
+                }
+                onChange={(value) =>
+                  handleFuelChange("landing", group.abbreviatedName, value)
+                }
+                step={50}
+              />
+            </div>
+          ))}
         </div>
       )}
     </div>
