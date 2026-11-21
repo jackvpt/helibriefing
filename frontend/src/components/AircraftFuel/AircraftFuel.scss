@@ -7,9 +7,7 @@
   gap: 0.5rem;
   padding: 1rem;
   max-width: 250px;
-  background-color: $primary-color-4;
-  border: 1px solid $primary-color-6;
-  border-radius: 0.5rem;
+  border: 1px solid $primary-color-3;
 
   &--singleGroup {
     display: flex;
@@ -24,6 +22,7 @@
 
       &--label {
         font-size: 0.9rem;
+        color: $text-color-2;
       }
     }
   }
@@ -43,6 +42,7 @@
 
       &--label {
         font-size: 0.9rem;
+        color: $text-color-2;
       }
     }
   }

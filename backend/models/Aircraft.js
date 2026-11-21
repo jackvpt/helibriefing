@@ -13,7 +13,7 @@ const aircraftSchema = mongoose.Schema(
       required: true,
     },
     avatarUrl: { type: String, default: null },
-    emptyEquippedWeight: {
+    emptyWeight: {
       unit: {
         type: String,
         enum: ["kg", "lbs"],
@@ -25,8 +25,9 @@ const aircraftSchema = mongoose.Schema(
         required: true,
         min: [0, "Weight cannot be negative"],
       },
+      weighingDate: { type: Date, default: null },
     },
-    emptyEquippedCog: {
+    emptyCog: {
       unit: {
         type: String,
         enum: ["millimeters", "centimeters", "meters"],

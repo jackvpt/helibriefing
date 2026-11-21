@@ -10,7 +10,7 @@
   padding: 1rem;
   width: 100%;
   max-width: 300px;
-  background-color: $primary-color-5;
+  background-color: $primary-color-1;
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
@@ -36,12 +36,12 @@
 
   &:hover {
     cursor: pointer;
-    background-color: $primary-color-3;
+    background-color: $primary-color-5;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
   }
 
   &.active {
-    background-color: $primary-color-2;
+    background-color: $primary-color-5;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
   }
 }

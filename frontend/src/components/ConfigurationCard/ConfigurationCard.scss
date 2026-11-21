@@ -1,5 +1,5 @@
-@use "../../styles/utils/variables" as *;
-@use "../../styles/utils/mixins" as *;
+@use "../../styles/utils/index" as *;
+
 
 .container__configurationCard {
   display: flex;
@@ -10,7 +10,7 @@
   padding: 1rem;
   width: 100%;
   max-width: 400px;
-  background-color: $primary-color-4;
+  background-color: $primary-color-1;
   border-radius: 0.5rem;
 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -22,7 +22,7 @@
 
   &:hover,
   &.active {
-    background-color: $primary-color-3;
+    background-color: $primary-color-5;
     color: $primary-color-1;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 

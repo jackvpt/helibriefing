@@ -23,16 +23,17 @@ export default class AircraftModel {
     this.avatarUrl = data.avatarUrl || null
 
     /** @type {{unit: "kg" | "lbs", weight: number | null}} */
-    this.emptyEquippedWeight = {
-      unit: data.emptyEquippedWeight?.unit ?? "kg",
-      weight: data.emptyEquippedWeight?.weight ?? null,
+    this.emptyWeight = {
+      unit: data.emptyWeight?.unit ?? "kg",
+      weight: data.emptyWeight?.weight ?? null,
+      weighingDate: data.emptyWeight?.weighingDate ?? null,
     }
 
     /** @type {{unit: "millimeters" | "centimeters" | "meters", longitudinal: number | null, lateral: number | null}} */
-    this.emptyEquippedCog = {
-      unit: data.emptyEquippedCog?.unit ?? "meters",
-      longitudinal: data.emptyEquippedCog?.longitudinal ?? null,
-      lateral: data.emptyEquippedCog?.lateral ?? null,
+    this.emptyCog = {
+      unit: data.emptyCog?.unit ?? "meters",
+      longitudinal: data.emptyCog?.longitudinal ?? null,
+      lateral: data.emptyCog?.lateral ?? null,
     }
 
     /** @type {{id: string | undefined, name: string[]}[]} */

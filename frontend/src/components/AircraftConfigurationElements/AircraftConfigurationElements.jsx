@@ -4,8 +4,6 @@ import "./AircraftConfigurationElements.scss"
 // React
 import { useDispatch, useSelector } from "react-redux"
 
-// Store
-import {setCustomWeight} from "../../store/features/settingsSlice"
 import { updateConfigurationElementWeight } from "../../store/features/weightBalanceSlice"
 
 // Components
@@ -16,7 +14,6 @@ const AircraftConfigurationElements = () => {
   const dispatch = useDispatch()
 
   // Data from Redux store
-  const customWeight = useSelector((state) => state.settings.customization.customWeight)
   const configurationElements = useSelector(
     (state) => state.weightBalance.configurationElements,
   )
@@ -33,20 +30,7 @@ const AircraftConfigurationElements = () => {
   }
   return (
     <div className="container__aircraftConfigurationElements">
-      <div className="container__aircraftConfigurationElements-element separator">
-        <div className="container__aircraftConfigurationElements-element-name">
-          Custom weight
-        </div>
-        <div className="container__aircraftConfigurationElements-element-weight">
-          <WeightInput
-            value={customWeight}
-            onChange={(weight) =>
-              dispatch(setCustomWeight(weight === null ? 0 : Number(weight)))
-            }
-            trash={false}
-          />
-        </div>
-      </div>
+
       {configurationElements.map((element) => (
         <div
           key={element.displayCode}

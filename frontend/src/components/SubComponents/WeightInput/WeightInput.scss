@@ -1,5 +1,4 @@
-@use "../../../styles/utils/variables" as *;
-@use "../../../styles/utils/mixins" as *;
+@use "../../../styles/utils" as *;
 
 .container__weightInput {
   display: flex;
@@ -11,6 +10,7 @@
   &-input {
     flex: 1;
     width: 3rem;
+    height: 1.25rem;
     font-size: 0.8rem;
     text-align: center;
     -moz-appearance: textfield;
@@ -25,16 +25,20 @@
 
   &-buttonAdjust {
     width: 1.5rem;
+    height: 1.2rem;
     font-size: 0.6rem;
-
     cursor: pointer;
     user-select: none;
+
+    &:hover {
+      background-color: $primary-color-5;
+    }
   }
 
   &-buttonTrash {
     width: 1.5rem;
     font-size: 0.8rem;
-    
+    color: $text-color-2;
     cursor: pointer;
     user-select: none;
 

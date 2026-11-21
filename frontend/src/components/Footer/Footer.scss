@@ -6,9 +6,10 @@ footer {
   flex-direction: row;
   justify-content: flex-start;
   background-color: $primary-color-2;
+  border:1px solid $primary-color-3;
   padding: 0.5rem;
   padding-left: 70px;
   gap:2rem;
-
   color: $text-color-2;
+
 }

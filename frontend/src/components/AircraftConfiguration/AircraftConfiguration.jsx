@@ -5,11 +5,15 @@ import "./AircraftConfiguration.scss"
 import { useDispatch, useSelector } from "react-redux"
 
 // Store
+import { setCustomWeight } from "../../store/features/settingsSlice"
 import { updateConfigurationElementWeight } from "../../store/features/weightBalanceSlice"
 
 // Images
 import SeatPax from "../../assets/images/seat_pax.svg?react"
 import SeatPilot from "../../assets/images/seat_pilot.svg?react"
+
+// Components
+import WeightInput from "../SubComponents/WeightInput/WeightInput"
 
 // Constants
 const SEAT_COMPONENTS = {
@@ -20,10 +24,15 @@ const SEAT_COMPONENTS = {
 const AircraftConfiguration = ({ configuration }) => {
   // Redux store
   const dispatch = useDispatch()
+
+  // Data from Redux store
+  const customWeight = useSelector(
+    (state) => state.settings.customization.customWeight,
+  )
+
   const storeElements = useSelector(
     (state) => state.weightBalance.configurationElements,
   )
-  const customWeight = useSelector((state) => state.settings.customization.customWeight)
 
   const noSeatImage = configuration.noSeatImageSrc ?? ""
 
@@ -50,10 +59,12 @@ const AircraftConfiguration = ({ configuration }) => {
 
   const handleSeatClick = (element) => () => {
     const currentWeight = weightByCode[element.displayCode] ?? 0
+    const newWeight = currentWeight === customWeight ? 0 : customWeight
+    
     dispatch(
       updateConfigurationElementWeight({
         displayCode: element.displayCode,
-        weight: currentWeight > 0 ? 0 : customWeight,
+        weight: newWeight,
       }),
     )
   }
@@ -61,58 +72,74 @@ const AircraftConfiguration = ({ configuration }) => {
   return (
     <>
       <div className="container__aircraftConfiguration">
-        <img
-          className="container__aircraftConfiguration-aircraft"
-          src={noSeatImage}
-          alt={`Picture of ${configuration.name}`}
-          onError={(e) => {
-            e.currentTarget.onerror = null
-            e.currentTarget.src = "/default-avatar.png"
-          }}
-        />
+        <div className="container__aircraftConfiguration--image">
+          <img
+            className="container__aircraftConfiguration--image--aircraft"
+            src={noSeatImage}
+            alt={`Picture of ${configuration.name}`}
+            onError={(e) => {
+              e.currentTarget.onerror = null
+              e.currentTarget.src = "/default-avatar.png"
+            }}
+          />
 
-        {/** Seats */}
-        {configuration.elements.map((element) => {
-          const { left, top } = toPercent(element.arm)
-          const Seat = SEAT_COMPONENTS[element.elementType] ?? SeatPax
-          const isOccupied = (weightByCode[element.displayCode] ?? 0) > 0
+          {/** Seats */}
+          {configuration.elements.map((element) => {
+            const { left, top } = toPercent(element.arm)
+            const Seat = SEAT_COMPONENTS[element.elementType] ?? SeatPax
+            const isOccupied = (weightByCode[element.displayCode] ?? 0) > 0
 
-          return (
-            <div
-              className="container__aircraftConfiguration-element"
-              key={element.id}
-              style={{
-                left: `${left - (SEAT_SCALE_X * 100) / 2}%`,
-                top: `${top - (SEAT_SCALE_Y * 100) / 2}%`,
-                width: `${SEAT_SCALE_X * 100}%`,
-                height: `${SEAT_SCALE_Y * 100}%`,
-              }}
-            >
+            return (
               <div
-                className={`container__aircraftConfiguration-element-text ${isOccupied ? "text--occupied" : ""}`}
-                onClick={handleSeatClick(element)}
+                className="container__aircraftConfiguration--image--element"
+                key={element.id}
+                style={{
+                  left: `${left - (SEAT_SCALE_X * 100) / 2}%`,
+                  top: `${top - (SEAT_SCALE_Y * 100) / 2}%`,
+                  width: `${SEAT_SCALE_X * 100}%`,
+                  height: `${SEAT_SCALE_Y * 100}%`,
+                }}
               >
-                {element.displayCode}
-              </div>
+                <div
+                  className={`container__aircraftConfiguration--image--element--text ${isOccupied ? "text--occupied" : ""}`}
+                  onClick={handleSeatClick(element)}
+                >
+                  {element.displayCode}
+                </div>
 
-              <div
-                className="container__aircraftConfiguration-element-weight"
-                onClick={handleSeatClick(element)}
-              >
-                {weightByCode[element.displayCode] > 0
-                  ? weightByCode[element.displayCode]
-                  : ""}
-              </div>
+                <div
+                  className="container__aircraftConfiguration--image--element--weight"
+                  onClick={handleSeatClick(element)}
+                >
+                  {weightByCode[element.displayCode] > 0
+                    ? weightByCode[element.displayCode]
+                    : ""}
+                </div>
 
-              <Seat
-                className={`container__aircraftConfiguration-element-seat ${isOccupied ? "seat--occupied" : ""}`}
-                role="img"
-                aria-label={`Siège ${element.displayCode}`}
-                onClick={handleSeatClick(element)}
-              />
-            </div>
-          )
-        })}
+                <Seat
+                  className={`container__aircraftConfiguration--image--element--seat ${isOccupied ? "seat--occupied" : ""}`}
+                  role="img"
+                  aria-label={`Siège ${element.displayCode}`}
+                  onClick={handleSeatClick(element)}
+                />
+              </div>
+            )
+          })}
+        </div>
+        <div className="container__aircraftConfiguration--image--customWeight">
+          <div className="container__aircraftConfiguration--image--customWeight--name">
+            Custom weight
+          </div>
+          <div className="container__aircraftConfiguration--image--customWeight--weight">
+            <WeightInput
+              value={customWeight}
+              onChange={(weight) =>
+                dispatch(setCustomWeight(weight === null ? 0 : Number(weight)))
+              }
+              trash={false}
+            />
+          </div>
+        </div>
       </div>
     </>
   )
