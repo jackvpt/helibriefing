@@ -6,7 +6,7 @@ import { useRef } from "react"
 
 // FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons"
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons"
 
 const WeightInput = ({ value, onChange, step = 5, min = 0 }) => {
   const justFocused = useRef(false)
@@ -35,7 +35,7 @@ const WeightInput = ({ value, onChange, step = 5, min = 0 }) => {
         min={min}
         step="any"
         inputMode="decimal"
-        value={value && value >0 ? value : ""}
+        value={value && value > 0 ? value : ""}
         onChange={(e) =>
           onChange(e.target.value === "" ? null : Number(e.target.value))
         }

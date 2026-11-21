@@ -5,10 +5,10 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding:1rem;
+  padding: 1rem;
   max-width: 250px;
   background-color: $primary-color-4;
-  border:1px solid $primary-color-6;
+  border: 1px solid $primary-color-6;
   border-radius: 0.5rem;
 
   &-element {
@@ -23,5 +23,11 @@
       font-size: 0.9rem;
       text-align: right;
     }
+  }
+
+  &-totalWeight {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
 }

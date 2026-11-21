@@ -46,3 +46,4 @@ export const useGetAllAircrafts = ({ enabled = true } = {}) => {
     ...DEFAULT_QUERY_OPTIONS,
   })
 }
+

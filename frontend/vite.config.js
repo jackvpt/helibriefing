@@ -5,4 +5,8 @@ import svgr from "vite-plugin-svgr"
 
 export default defineConfig({
   plugins: [react(), svgr()],
+  server: {
+    port: 5180,
+    strictPort: true, // échoue si le port est pris, au lieu d'en prendre un autre en silence
+  },
 })

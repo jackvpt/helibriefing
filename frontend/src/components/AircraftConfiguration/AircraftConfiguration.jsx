@@ -33,7 +33,7 @@ const AircraftConfiguration = ({ configuration }) => {
   const SPAN_LONGITUDINAL = MM_REAR - MM_NOSE
   const SPAN_LATERAL = Math.abs(MM_LEFT - MM_RIGHT)
   const SEAT_WIDTH = 550
-  const SEAT_HEIGHT = 700
+  const SEAT_HEIGHT = 550
   const SEAT_SCALE_X = SEAT_WIDTH / SPAN_LONGITUDINAL
   const SEAT_SCALE_Y = SEAT_HEIGHT / SPAN_LATERAL
 
@@ -80,26 +80,33 @@ const AircraftConfiguration = ({ configuration }) => {
             <div
               className="container__aircraftConfiguration-element"
               key={element.id}
+              style={{
+                left: `${left - (SEAT_SCALE_X * 100) / 2}%`,
+                top: `${top - (SEAT_SCALE_Y * 100) / 2}%`,
+                width: `${SEAT_SCALE_X * 100}%`,
+                height: `${SEAT_SCALE_Y * 100}%`,
+              }}
             >
               <div
-                className="container__aircraftConfiguration-element-text"
-                style={{ left: `${left}%`, top: `${top}%` }}
+                className={`container__aircraftConfiguration-element-text ${isOccupied ? "text--occupied" : ""}`}
                 onClick={handleSeatClick(element)}
               >
                 {element.displayCode}
+              </div>
+
+              <div
+                className="container__aircraftConfiguration-element-weight"
+                onClick={handleSeatClick(element)}
+              >
+                {weightByCode[element.displayCode] > 0
+                  ? weightByCode[element.displayCode]
+                  : ""}
               </div>
 
               <Seat
                 className={`container__aircraftConfiguration-element-seat ${isOccupied ? "seat--occupied" : ""}`}
                 role="img"
                 aria-label={`Siège ${element.displayCode}`}
-                style={{
-                  left: `${left}%`,
-                  top: `${top}%`,
-                  width: `${SEAT_SCALE_X * 100}%`,
-                  height: `${SEAT_SCALE_Y * 100}%`,
-                  transform: `translate(-50%, -50%) rotate(${element.orientation ?? 0}deg)`,
-                }}
                 onClick={handleSeatClick(element)}
               />
             </div>

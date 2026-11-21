@@ -1,0 +1,26 @@
+@use "../../styles/utils/variables" as *;
+@use "../../styles/utils/mixins" as *;
+
+.container__aircraftFuel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  max-width: 250px;
+  background-color: $primary-color-4;
+  border: 1px solid $primary-color-6;
+  border-radius: 0.5rem;
+
+  &--singleGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &--row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}

@@ -40,7 +40,6 @@ const persistConfig = {
   key: "root",
   version: 1, // bump when the shape of the persisted state changes
   storage,
-  blacklist: [], // do not persist these slices
   whitelist: ["user", "settings", "weightBalance"], // only persist these slices
 }
 

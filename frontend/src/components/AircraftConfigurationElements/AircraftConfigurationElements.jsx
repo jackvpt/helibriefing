@@ -5,10 +5,9 @@ import "./AircraftConfigurationElements.scss"
 import { useDispatch, useSelector } from "react-redux"
 
 // Store
-import {
-  selectTotalWeight,
-  updateConfigurationElementWeight,
-} from "../../store/features/weightBalanceSlice"
+import { updateConfigurationElementWeight } from "../../store/features/weightBalanceSlice"
+
+// Components
 import WeightInput from "../SubComponents/WeightInput/WeightInput"
 
 const AircraftConfigurationElements = () => {
@@ -19,7 +18,7 @@ const AircraftConfigurationElements = () => {
   const configurationElements = useSelector(
     (state) => state.weightBalance.configurationElements,
   )
-  const totalWeight = useSelector(selectTotalWeight)
+  const totalWeights = useSelector((state) => state.weightBalance.totalWeights)
 
   // Local functions
   const handleWeightChange = (displayCode, weight) => {
@@ -42,12 +41,18 @@ const AircraftConfigurationElements = () => {
           </div>
 
           <div className="container__aircraftConfigurationElements-element-weight">
-            <WeightInput value={element.weight} onChange={(weight) => handleWeightChange(element.displayCode, weight)} />
+            <WeightInput
+              value={element.weight}
+              onChange={(weight) =>
+                handleWeightChange(element.displayCode, weight)
+              }
+            />
           </div>
         </div>
       ))}
+      
       <div className="container__aircraftConfigurationElements-totalWeight">
-        Total weight: {totalWeight} kg
+        Total weight: {totalWeights} kg
       </div>
     </div>
   )

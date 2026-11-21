@@ -41,6 +41,16 @@ export default class AircraftModel {
     )
   }
 
+  toWeightBalance() {
+    return {
+      weight: this.emptyEquippedWeight.weight,
+      arm: {
+        longitudinal: this.emptyEquippedCog.longitudinal,
+        lateral: this.emptyEquippedCog.lateral,
+      },
+    }
+  }
+
   get avatarSrc() {
     return this.avatarUrl
       ? `${import.meta.env.VITE_API_URL}${this.avatarUrl}`

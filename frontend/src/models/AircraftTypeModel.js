@@ -102,6 +102,9 @@ export default class AircraftTypeModel {
       longitudinal: toDiagram(env.longitudinal),
       lateral: toDiagram(env.lateral),
     }))
+
+    /** @type {Object[]} */
+    this.fuelMoments = data.fuelMoments ?? []
   }
 
   /** @returns {boolean} True if the type has at least one extended envelope. */

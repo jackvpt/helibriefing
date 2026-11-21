@@ -86,16 +86,55 @@ const extendedEnvelopeSchema = mongoose.Schema({
   lateral: { type: extendedDiagramSchema, default: undefined },
 })
 
+/** One row of the fuel loading table (values as printed in the flight manual) */
+const fuelMomentRowSchema = mongoose.Schema(
+  {
+    volumeL: { type: Number, required: true },
+    volumeUsGal: { type: Number, required: true },
+    mass: { type: Number, required: true }, // in the aircraft type weightUnit
+    arm: { type: Number, required: true }, // in the fuel table distanceUnit
+    moment: { type: Number, required: true }, // mass × arm
+  },
+  { _id: false },
+)
+
+/** Fuel loading table: rows sorted by ascending mass, at least 2 rows to interpolate */
+const fuelMomentsSchema = mongoose.Schema(
+  {
+    distanceUnit: { ...distanceUnitField, default: "millimeters" },
+    groups: [
+      {
+        name: { type: String, required: false },
+        abbreviatedName: { type: String, required: false },
+        rows: {
+          type: [fuelMomentRowSchema],
+          required: true,
+          validate: {
+            validator: (rows) =>
+              Array.isArray(rows) &&
+              rows.length >= 2 &&
+              rows.every((row, i) => i === 0 || row.mass > rows[i - 1].mass),
+            message:
+              "Fuel moments need at least 2 rows sorted by ascending mass",
+          },
+        },
+      },
+    ],
+  },
+  { _id: false },
+)
+
 const aircraftTypeSchema = mongoose.Schema({
   type: { type: String, required: true },
   weightUnit: weightUnitField,
-  minimumWeight: { type: Number, required: true }, // in weightUnit
-  maximumWeight: { type: Number, required: true }, // in weightUnit
+  minimumWeight: { type: Number, required: true },
+  maximumWeight: { type: Number, required: true },
   cogLimitations: { type: envelopeSchema, required: true },
   extendedCogLimitations: {
     type: [extendedEnvelopeSchema],
-    default: [], // no extended envelope = empty list
+    default: [],
   },
+  fuelMoments: { type: fuelMomentsSchema, default: undefined },
 })
 
 /** Model methods converts Schema in usable model */
