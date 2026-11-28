@@ -1,2 +1,13 @@
 @use "../../styles/utils/variables" as *;
 @use "../../styles/utils/mixins" as *;
+
+.container__weightsReport {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  max-width: 250px;
+  border: 1px solid $primary-color-3;
+
+
+}

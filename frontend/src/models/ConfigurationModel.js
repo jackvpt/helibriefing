@@ -24,8 +24,16 @@ export default class ConfigurationModel {
     /**  @type {string} */
     this.description = data.description
 
+    /** @type {string} */
+    this.weightUnit = data.weight.unit
+    
+    /** @type {number} */
+    this.weight = data.weight.value
+
     /** @type {Array} */
-    this.elements = data.elements?.map((element) => new ConfigurationElementModel(element)) || []
+    this.elements =
+      data.elements?.map((element) => new ConfigurationElementModel(element)) ||
+      []
 
     /** @type {string | null} */
     this.avatarUrl = data.avatarUrl || null

@@ -11,6 +11,9 @@ import { updateConfigurationElementWeight } from "../../store/features/weightBal
 // Images
 import SeatPax from "../../assets/images/seat_pax.svg?react"
 import SeatPilot from "../../assets/images/seat_pilot.svg?react"
+import Cargo from "../../assets/images/cargo.svg?react"
+import Skid from "../../assets/images/skid.svg?react"
+import Weight from "../../assets/images/weight.svg?react"
 
 // Components
 import WeightInput from "../SubComponents/WeightInput/WeightInput"
@@ -19,6 +22,9 @@ import WeightInput from "../SubComponents/WeightInput/WeightInput"
 const SEAT_COMPONENTS = {
   seat_pilot: SeatPilot,
   seat_pax: SeatPax,
+  cargo: Cargo,
+  skid: Skid,
+  weight: Weight,
 }
 
 const AircraftConfiguration = ({ configuration }) => {
@@ -42,8 +48,8 @@ const AircraftConfiguration = ({ configuration }) => {
   const MM_RIGHT = configuration.noSeatImage?.max_lateral ?? 0
   const SPAN_LONGITUDINAL = MM_REAR - MM_NOSE
   const SPAN_LATERAL = Math.abs(MM_LEFT - MM_RIGHT)
-  const SEAT_WIDTH = 550
-  const SEAT_HEIGHT = 550
+  const SEAT_WIDTH = 500    
+  const SEAT_HEIGHT = 500
   const SEAT_SCALE_X = SEAT_WIDTH / SPAN_LONGITUDINAL
   const SEAT_SCALE_Y = SEAT_HEIGHT / SPAN_LATERAL
 
@@ -60,7 +66,7 @@ const AircraftConfiguration = ({ configuration }) => {
   const handleSeatClick = (element) => () => {
     const currentWeight = weightByCode[element.displayCode] ?? 0
     const newWeight = currentWeight === customWeight ? 0 : customWeight
-    
+
     dispatch(
       updateConfigurationElementWeight({
         displayCode: element.displayCode,
@@ -121,6 +127,10 @@ const AircraftConfiguration = ({ configuration }) => {
                   role="img"
                   aria-label={`Siège ${element.displayCode}`}
                   onClick={handleSeatClick(element)}
+                  style={{
+                    transform: `rotate(${element.orientation ?? 0}deg)`,
+                    transformOrigin: "center",
+                  }}
                 />
               </div>
             )

@@ -17,6 +17,14 @@ const configurationSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    weight: {
+      unit: {
+        type: String,
+        enum: ["kg", "lbs"],
+        default: "kg",
+      },
+      value: { type: Number, default: 0 },
+    },
     elements: [
       {
         name: { type: String, required: true },

@@ -20,7 +20,7 @@ const aircraftSchema = mongoose.Schema(
         required: true,
         default: "kg",
       },
-      weight: {
+      value: {
         type: Number,
         required: true,
         min: [0, "Weight cannot be negative"],
@@ -38,7 +38,7 @@ const aircraftSchema = mongoose.Schema(
     },
     acceptedConfigurations: [
       {
-        name: [{ type: String, required: true }],
+        name: { type: String, required: true },
       },
     ],
   },

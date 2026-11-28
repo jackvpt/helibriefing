@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 // 🛠️ Redux
 import { setSelectedAircraftConfiguration } from "../../store/features/settingsSlice"
-import { setConfigurationElements } from "../../store/features/weightBalanceSlice"
+import { setConfigurationElements, setConfigurationWeight } from "../../store/features/weightBalanceSlice"
 
 // Models
 import ConfigurationElementModel from "../../models/ConfigurationElementModel"
@@ -25,6 +25,7 @@ const ConfigurationCard = ({ configuration }) => {
   // Local functions
   const handleClick = () => {
     dispatch(setSelectedAircraftConfiguration(configuration.name))
+    dispatch(setConfigurationWeight(configuration.weight))
     dispatch(
       setConfigurationElements(
         configuration.elements.map((element) => new ConfigurationElementModel(element).toPayload()),

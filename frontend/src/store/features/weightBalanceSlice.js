@@ -28,8 +28,20 @@ const initialState = {
   /** @type {Aircraft | null} */
   aircraft: { weight: 0, moments: { longitudinal: 0, lateral: 0 } },
 
+  /** @type {number} */
+  configurationWeight: 0,
+
+  /** @type {number} */
+  emptyEquippedWeight: 0,
+
   /** @type {Array<Object>} Plain objects (see ConfigurationElementModel.toPayload). */
   configurationElements: [],
+
+  /** @type {number} */
+  configurationElementsWeight: 0,
+
+  /** @type {number} */
+  zeroFuelWeight: 0,
 
   /** @type {Object} Fuel weights for takeoff and landing. */
   fuel: {
@@ -38,6 +50,12 @@ const initialState = {
     landingGroups: [],
     landingTotal: 0,
   },
+
+  /** @type {number} */
+  takeoffWeight: 0,
+
+  /** @type {number} */
+  landingWeight: 0,
 
   totalWeights: 0,
   totalMoments: {
@@ -81,6 +99,12 @@ const weightBalanceSlice = createSlice({
       recomputeTotals(state)
     },
 
+    /** Set the configuration weight. */
+    setConfigurationWeight: (state, action) => {
+      state.configurationWeight = action.payload
+      recomputeTotals(state)
+    },
+
     /** @param {Array<Object>} action.payload - Plain objects, not class instances. */
     setConfigurationElements: (state, action) => {
       state.configurationElements = action.payload
@@ -118,7 +142,6 @@ const weightBalanceSlice = createSlice({
 
     /** @param {{ phase: string, group: Object, value: number }} action.payload */
     updateFuelGroups: (state, action) => {
-      
       const { phase, group, value } = action.payload
 
       const groupsKey = phase === "takeoff" ? "takeoffGroups" : "landingGroups"
@@ -135,6 +158,8 @@ const weightBalanceSlice = createSlice({
         (sum, g) => sum + (g.value || 0),
         0,
       )
+
+      recomputeTotals(state)
     },
   },
 })
@@ -145,17 +170,26 @@ const weightBalanceSlice = createSlice({
  * @param {Object} state - Immer draft of the slice.
  */
 const recomputeTotals = (state) => {
-  const { aircraft, configurationElements } = state
+  const { aircraft, configurationWeight, configurationElements } = state
 
-  state.totalWeights = configurationElements.reduce(
-    (sum, el) => sum + (Number(el.weight) || 0),
-    aircraft?.weight || 0,
+  state.emptyEquippedWeight = aircraft?.weight + configurationWeight
+
+  state.configurationElementsWeight = configurationElements.reduce(
+    (sum, element) => sum + (Number(element.weight) || 0),
+    0,
   )
 
+  state.zeroFuelWeight =
+    state.emptyEquippedWeight + state.configurationElementsWeight
+
+  state.takeoffWeight = state.zeroFuelWeight + state.fuel.takeoffTotal
+  
+  state.landingWeight = state.zeroFuelWeight + state.fuel.landingTotal
+
   state.totalMoments = configurationElements.reduce(
-    (sum, el) => ({
-      longitudinal: sum.longitudinal + (el.moment?.longitudinal || 0),
-      lateral: sum.lateral + (el.moment?.lateral || 0),
+    (sum, element) => ({
+      longitudinal: sum.longitudinal + (element.moment?.longitudinal || 0),
+      lateral: sum.lateral + (element.moment?.lateral || 0),
     }),
     {
       // Start from the aircraft moment so it is counted only once
@@ -170,6 +204,7 @@ export const {
   resetAircraft,
   setAircraft,
   resetConfigurationElements,
+  setConfigurationWeight,
   setConfigurationElements,
   updateConfigurationElementWeight,
   setFuelGroups,

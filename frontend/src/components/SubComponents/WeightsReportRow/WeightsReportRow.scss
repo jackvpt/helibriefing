@@ -1,0 +1,18 @@
+@use "../../../styles/utils/index" as *;
+
+.container__weightsReportRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  &--label {
+    font-size: 0.9rem;
+    color: $text-color-2;
+  }
+
+  &--value {
+    font-size: 0.9rem;
+    color: $text-color-2;
+  }
+}

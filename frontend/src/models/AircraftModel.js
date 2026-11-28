@@ -25,7 +25,7 @@ export default class AircraftModel {
     /** @type {{unit: "kg" | "lbs", weight: number | null}} */
     this.emptyWeight = {
       unit: data.emptyWeight?.unit ?? "kg",
-      weight: data.emptyWeight?.weight ?? null,
+      value: data.emptyWeight?.value ?? null,
       weighingDate: data.emptyWeight?.weighingDate ?? null,
     }
 
@@ -44,10 +44,10 @@ export default class AircraftModel {
 
   toWeightBalance() {
     return {
-      weight: this.emptyEquippedWeight.weight,
+      weight: this.emptyWeight.value,
       arm: {
-        longitudinal: this.emptyEquippedCog.longitudinal,
-        lateral: this.emptyEquippedCog.lateral,
+        longitudinal: this.emptyCog.longitudinal,
+        lateral: this.emptyCog.lateral,
       },
     }
   }

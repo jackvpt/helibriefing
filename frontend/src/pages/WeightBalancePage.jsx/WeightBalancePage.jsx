@@ -11,6 +11,7 @@ import { useGetConfigurationsByAircraftType } from "../../hooks/useConfiguration
 import AircraftConfiguration from "../../components/AircraftConfiguration/AircraftConfiguration"
 import AircraftConfigurationElements from "../../components/AircraftConfigurationElements/AircraftConfigurationElements"
 import AircraftFuel from "../../components/AircraftFuel/AircraftFuel"
+import WeightsReport from "../../components/WeightsReport/WeightsReport"
 
 const WeightBalancePage = () => {
   const selectedAircraft = useSelector(
@@ -33,6 +34,7 @@ const WeightBalancePage = () => {
       <AircraftConfiguration configuration={selectedConfiguration} />
       <AircraftConfigurationElements />
       <AircraftFuel aircraftType={selectedAircraft?.aircraftType} />
+      <WeightsReport />
     </section>
   )
 }
